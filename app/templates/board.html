@@ -1,0 +1,151 @@
+<body style="background-color:#090712"></body>
+<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+<div id="page-wrapper" class="container">
+<div class="row">
+<div class="col-lg-12">
+<h1>GS Aplicações <small>Lista de aplicações </small></h1>
+<ol class="breadcrumb">
+<li class="active"><i class="fa fa-cubes"></i> Meus Apps</li>
+</ol>
+<div class="alert alert-success alert-dismissable">
+<button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+Use as caixas abaixo para acessar as aplicações e suas configurações, lembrando que algumas funções são limitadas ao usuário!
+</div>
+</div>
+</div>
+<div class="row">
+
+<div class="col-lg-3">
+    <div class="panel panel-success">
+    <div class="panel-heading">
+    <div class="row">
+    <div class="col-xs-6">
+    <i class="fa fa-comments fa-5x"></i>
+    </div>
+    <div class="col-xs-6 text-right">
+    <p class="announcement-text" style="color:white;">Aviso TI!</p>
+    </div>
+    </div>
+    </div>
+    <a href="#">
+    <div class="panel-footer announcement-bottom" data-route="{{ url_for('panel') }}">
+    <div class="row">
+    <div class="col-xs-6">
+        <strong>Configurar</strong>
+    </div>
+    <div class="col-xs-6 text-right">
+    <i class="fa fa-arrow-circle-right"></i>
+    </div>
+    </div>
+    </div>
+    </a>
+    </div>
+    </div>
+
+<!--<div class="col-lg-3">
+<div class="panel panel-warning">
+<div class="panel-heading">
+<div class="row">
+<div class="col-xs-6">
+<i class="fa fa-check fa-5x"></i>
+</div>
+<div class="col-xs-6 text-right">
+<p class="announcement-text">To-Do Items</p>
+</div>
+</div>
+</div>
+<a href="#">
+<div class="panel-footer announcement-bottom">
+<div class="row">
+<div class="col-xs-6">
+View
+</div>
+<div class="col-xs-6 text-right">
+<i class="fa fa-arrow-circle-right"></i>
+</div>
+</div>
+</div>
+</a>
+</div>
+</div>
+<div class="col-lg-3">
+<div class="panel panel-danger">
+<div class="panel-heading">
+<div class="row">
+<div class="col-xs-6">
+<i class="fa fa-tasks fa-5x"></i>
+</div>
+<div class="col-xs-6 text-right">
+<p class="announcement-text">Crawl Errors</p>
+</div>
+</div>
+</div>
+<a href="#">
+<div class="panel-footer announcement-bottom">
+<div class="row">
+<div class="col-xs-6">
+View
+</div>
+<div class="col-xs-6 text-right">
+<i class="fa fa-arrow-circle-right"></i>
+</div>
+</div>
+</div>
+</a>
+</div>
+</div>
+
+<div class="col-lg-3">
+    <div class="panel panel-info">
+    <div class="panel-heading">
+    <div class="row">
+    <div class="col-xs-6">
+    <i class="fa fa-users fa-5x"></i>
+    </div>
+    <div class="col-xs-6 text-right">
+    <p class="announcement-text">Users</p>
+    </div>
+    </div>
+    </div>
+    <a href="#">
+    <div class="panel-footer announcement-bottom">
+    <div class="row">
+    <div class="col-xs-6">
+    View
+    </div>
+    <div class="col-xs-6 text-right">
+    <i class="fa fa-arrow-circle-right"></i>
+    </div>
+    </div>
+    </div>
+    </a>
+    </div>
+    </div>-->
+    
+    
+    <script>
+        $(document).ready(function() {
+            
+        
+            // Captura o clique no link âncora (já existente no código original)
+            $('.panel-footer').click(function(event) {
+                event.preventDefault();
+                const route = $(this).data('route');
+                $.ajax({
+                    url: route,
+                    type: 'GET',
+                    success: function(response) {
+                        $('#conteudo').html(response);
+                    },
+                    error: function(error) {
+                        console.log('Erro ao carregar a rota:', error);
+                    }
+                });
+            });
+        });
+        
+        </script>
+
+
+</div>
+</div>

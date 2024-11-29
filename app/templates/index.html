@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Painel de gerenciamento de automações">
+  <meta name="author" content="Michael Faria, Bootstrap tools, GalaSistemas, Gala, Galante, Mike">
+  <link rel="icon" href="{{ url_for('static', filename='favicon.png') }}" type="image/x-icon">
+  <meta name="generator" content="Hugo 0.84.0">
+  <title>GS-PANEL</title>
+
+  <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/sidebars/">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+   <link href="{{url_for('static', filename='sweet.css')}}" rel="stylesheet">
+   
+   
+ 
+  <!-- Bootstrap core CSS 
+  <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">-->
+  <link href="{{url_for('static', filename='assets/dist/css/bootstrap.min.css')}}" rel="stylesheet">
+  <link href="{{url_for('static', filename='bootstrap_board.css')}}" rel="stylesheet">
+ 
+  </head>
+  <style>
+  .bootstrap{
+
+margin-left: -10px;
+
+  }
+  .container {
+    width: 1060px;
+}
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+    }
+
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+      }
+    }
+  </style>
+
+  <!-- Custom styles for this template -->
+  <link href="{{url_for('static', filename='sidebars.css')}}" rel="stylesheet">
+  
+
+<body>
+  
+</head>
+<main>
+ 
+  <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 280px;">
+    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+      <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
+      <span class="fs-4">
+
+      <img src="{{url_for('static', filename='gs.png')}}" class='bootstrap'></img>
+      </span>
+    </a>
+   
+   
+
+    {% if not current_user.is_authenticated %}
+   
+    <script>window.location.replace("login");</script>
+    {% endif %}
+  
+  <small class="text-muted" style="margin-bottom:-5px; margin-left:20px;">&copy;Desenvolvido por Michael Faria.</small>
+     <hr>
+      <ul class="nav nav-pills flex-column mb-auto">
+        <li class="nav-item">
+          <a href="" class="nav-link active" aria-current="page" data-route="{{ url_for('dashboard') }}">
+            <i class="fas fa-home me-2"></i>
+           <strong> Inicio</strong>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="nav-link text-white" data-route="{{ url_for('apps') }}">
+            <i class="fa fa-cubes me-2"></i>
+            Aplicações          </a>
+        </li>
+        <li>
+          <a href="#" class="nav-link text-white disabled" data-route="{{ url_for('panel') }}">
+            <i class="fa fa-signal me-2"></i>
+            Monitores
+          </a>
+        </li>
+        <li>
+          <a href="#" class="nav-link text-white disabled" data-route="{{ url_for('robots') }}">
+            <i class="fa fa-android me-2"></i>
+            Robos
+        </a>
+        </li>
+        <li>
+          <!--<a href="#" class="nav-link text-white" data-route="{{ url_for('team') }}">
+            <i class="fa fa-cogs me-2"></i>
+            Usuários 
+          </a>-->
+
+        </li>
+      </ul> 
+	
+      <hr>
+      <div class="dropdown">
+        <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+          <!--<img src="https://static-00.iconduck.com/assets.00/profile-default-icon-2048x2045-u3j7s5nj.png" alt="" width="32" height="32" class="rounded-circle me-2">-->
+		  <img class="rounded-circle me-2 mb-1" width="32" height="32" src="{{ url_for('imagem', nome_arquivo=img_user)}}" alt></img>
+          <strong> {{ current_user.name }}</strong>
+        </a>
+
+        <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+		{% if current_user.id in [4, 3] %}
+           <li><a class="dropdown-item nav-perfil" data-route="{{ url_for('manager_users') }}" href="{{url_for('manager_users') }}">Gerenciar Usuarios</a></li>
+		   {% endif %}
+		   
+		   {% if current_user.id in [8, 1] %}
+           <li><a class="dropdown-item rep" data-route="{{ url_for('replicate') }}" href="#">EXEC Replicação</a></li>
+		   {% endif %}
+		   
+		   
+         
+          <li><a class="dropdown-item nav-perfil" href="#" id="rep" data-route="{{ url_for('perfil') }}">Meu Perfil</a></li>
+		   <li><a class="dropdown-item" href="#">Configurações</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" href="/logout">Logout</a></li>
+        </ul>
+      </div>
+    </div>
+       
+    <div class="b-example-divider"></div>
+    <div id="conteudo"></div>
+  
+  </main>
+
+  
+
+<!-- Seus scripts -->
+
+<script src="{{url_for('static', filename='assets/dist/js/bootstrap.bundle.min.js')}}"></script>
+<script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="{{url_for('static', filename='sweet.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.js"></script>
+   
+
+<script>
+
+  $(document).ready(function() {
+    $('.nav-link').click(function(e) {
+      e.preventDefault();
+      $('.nav-link.active').removeClass('active');
+      $(this).addClass('active');
+    });
+  });
+
+ 
+  $(document).ready(function() {
+    // Faz a requisição AJAX para carregar o conteúdo da rota 'dashboard'
+    $.ajax({
+        url: 'dashboard', // Rota 'dashboard'
+        type: 'GET',
+        success: function(response) {
+            // Atualiza a div de conteúdo com a resposta da rota 'dashboard'
+            $('#conteudo').html(response);
+        },
+        error: function(error) {
+            console.log('Erro ao carregar a rota:', error);
+        }
+    });
+
+    // Captura o clique no link âncora (já existente no código original)
+    $('.nav-link').click(function(event) {
+        event.preventDefault();
+        const route = $(this).data('route');
+        $.ajax({
+            url: route,
+            type: 'GET',
+            success: function(response) {
+                $('#conteudo').html(response);
+            },
+            error: function(error) {
+                console.log('Erro ao carregar a rota:', error);
+            }
+        });
+    });
+});
+
+</script>
+<script>
+$('.nav-perfil').click(function(event) {
+    event.preventDefault();
+    const route = $(this).data('route');
+    $.ajax({
+        url: route,
+        type: 'GET',
+        success: function(response) {
+            $('#conteudo').html(response);
+        },
+        error: function(error) {
+            console.log('Erro ao carregar a rota:', error);
+        }
+    });
+});
+
+</script>
+ 
+ 
+<!-- Conectar ao servidor SocketIO -->
+<script>
+    var socket = io.connect('http://' + document.domain);
+
+    // Evento para receber status de usuário do servidor
+    socket.on('user_status', function(data) {
+        console.log('Received user status:', data);
+
+        // Atualizar a interface do usuário com base no status do usuário
+        var statusMessage = data.is_online ? 'Online' : 'Offline';
+        //document.getElementById('userStatus_' + data.user_id).innerHTML = statusMessage;
+    });
+
+    // Evento para receber a lista de todos os usuários e seus estados online/offline
+    socket.on('all_users_status', function(data) {
+        console.log('Received all users status:', data);
+
+        // Atualizar a interface do usuário com base na lista de usuários
+        var users = data.users;
+        console.log(users)
+        //for (var i = 0; i < users.length; i++) {
+        //    var userId = users[i].user_id;
+        //    var statusMessage = users[i].is_online ? 'Online' : 'Offline';
+        //    document.getElementById('userStatus_' + userId).innerHTML = statusMessage;
+       // }
+    });
+
+    // Verificar status do usuário ao carregar a página
+    $(document).ready(function() {
+        var userId = {{current_user.id}};  // Substitua pelo ID do usuário desejado
+        socket.emit('check_user_status', {'user_id': userId});
+
+        // Solicitar a lista de todos os usuários e seus estados online/offline
+        socket.emit('get_all_users');
+    });
+</script>
+ 
+ 
+<script>
+
+$(document).ready(function() {
+    $('.rep').on('click', function(event) {
+        event.preventDefault(); 
+
+        
+        $.ajax({
+            url: 'replicate', // Rota 'replicate'
+            type: 'GET',
+            success: function(response) {
+                console.log("TESTE OK");
+				swal("Sucesso!", "EXEC Foi executado com sucesso!", "success")
+               
+            },
+            error: function(error) {
+                console.log('Erro ao carregar a rota:', error);
+            }
+        });
+    });
+});
+
+
+</script> 
+</body>
+</html>
+

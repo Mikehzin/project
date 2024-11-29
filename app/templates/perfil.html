@@ -1,0 +1,473 @@
+
+<div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 11">
+
+          <!-- HTML do toast -->
+          <div class="toast align-items-center text-white bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true" id="toast">
+              <div class="d-flex">
+                  <div class="toast-body">
+                 
+                  </div>
+                  <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+              </div>
+          </div>
+
+</div>
+<style type="text/css">
+    	
+.img-account-profile {
+     width: 10rem;  /* Defina o tamanho desejado */
+    height: 10rem;
+}
+.rounded-circle {
+    border-radius: 50% !important;
+	object-fit: cover;
+}
+.card {
+    box-shadow: 0 0.15rem 1.75rem 0 rgb(33 40 50 / 15%);
+	background-color: #131416;
+	
+	
+}
+.card .card-header {
+    font-weight: 500;
+}
+.card-header:first-child {
+    border-radius: 0.35rem 0.35rem 0 0;
+}
+.card-header {
+    padding: 1rem 1.35rem;
+    margin-bottom: 0;
+    background-color: #0077e5;
+    border-bottom: 1px solid rgba(33, 40, 50, 0.125);
+	color: white;
+}
+label,.label {
+color:white;
+
+}
+
+.row {
+    overflow-y: auto; 
+    max-height: 600px; 
+}
+.form-control, .dataTable-input {
+    display: block;
+    width: 100%;
+    padding: 0.875rem 1.125rem;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1;
+    color: #69707a;
+    background-color:#131416;
+    background-clip: padding-box;
+    border: 1px solid #c5ccd6;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 0.35rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.nav-borders .nav-link.active {
+    color: #0061f2;
+    border-bottom-color: #0061f2;
+}
+.nav-borders .nav-link {
+    color: white;
+    border-bottom-width: 0.125rem;
+    border-bottom-style: solid;
+    border-bottom-color: transparent;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+ /* Estilo básico para o contêiner do input */
+    .file-input-container {
+      position: relative;
+      width: 200px;
+      
+	    margin: 20px auto; /
+    }
+
+    /* Estilo para esconder o input original */
+    .file-input-container input[type="file"] {
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+    }
+
+    /* Estilo para o botão estilizado */
+    .custom-file-upload {
+      display: inline-block;
+      padding: 10px 15px;
+      cursor: pointer;
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+    }
+    </style>
+
+<div class="container">
+     <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active btn-primary" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="true">Perfil</button>
+        </li>
+       <li class="nav-item" role="presentation">
+            <button class="nav-link btn-primary" id="security-tab" data-bs-toggle="tab" data-bs-target="#security" type="button" role="tab" aria-controls="security" aria-selected="false">Segurança</button>
+        </li>
+    </ul>
+    <hr class="mt-0 mb-4">
+	  <div class="tab-content" id="myTabContent">
+       <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+      <div class="row">       
+	  <div class="col-xl-4">
+	           <div class="card mb-4">
+                <div class="card-header">Avatar de perfil</div>
+                <div class="card-body text-center">
+			
+                    <img class="img-account-profile rounded-circle mb-2" id="perfil_pic" src="{{ url_for('imagem', nome_arquivo=img_user)}}" alt>
+					<form action="uploads" method="POST" id="pform" enctype="multipart/form-data">
+    <div class="file-input-container">
+    <input type="file" accept=".jpg, .jpeg, .png" name="arquivo" id="fileInput">
+    <label for="fileInput" class="custom-file-upload">Escolher Arquivo</label>
+  </div>
+    <div class="small font-italic text-muted mb-4">JPG or PNG máximo 5mb</div>
+   <button class="btn btn-primary float-left" id="bnp" type="submit">Salvar imagem</button>
+</form>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-8">
+
+            <div class="card mb-4"> <!-- Aumentei o tamanho do card com a classe h-100 -->
+                <div class="card-header">Detalhes do Perfil</div>
+                <div class="card-body">
+                    <form action="v_profile" method="POST" id="bform">
+					{{ form1.csrf_token }}
+					  
+                            <div class="mb-3">
+                                <label class="small mb-1" for="inputUsername">Usuário (Esse é o nome unico que irá aparecer em todo o Painel)</label>
+								{{ form1.username(class="form-control", id="inputUsername", placeholder="Insira um usuário", value=current_user.username) }}
+                            </div>
+
+<div class="row gx-3 mb-3">
+
+<div class="col-md-6">
+<label class="small mb-1" for="inputFirstName">Primeiro Nome</label>
+{{ form1.name(class="form-control", id="inputFirstName", placeholder="Primeiro nome", value=current_user.name) }}
+</div>
+
+<div class="col-md-6">
+<label class="small mb-1" for="inputLastName">Ultimo Nome</label>
+<input class="form-control" disabled id="inputLastName" type="text" placeholder="Ultimo nome" value="O mesmo!">
+</div>
+</div>
+
+<div class="row gx-3 mb-3">
+
+<div class="col-md-6">
+<label class="small mb-1" for="inputOrgName">Cargo</label>
+            {% if current_user.cargo == "1" %}
+                {% set cargo = "Analista N1" %}
+            {% endif %}
+			
+			{% if current_user.cargo == "2" %}
+                {% set cargo = "Analista N2" %}
+            {% endif %}
+			
+			{% if current_user.cargo == "3" %}
+                {% set cargo = "Assistente" %}
+            {% endif %}
+			
+			{% if current_user.cargo == "4" %}
+                {% set cargo = "Lider Atendimento" %}
+            {% endif %}
+<input class="form-control" disabled id="inputOrgName" type="text" value="{{cargo}}">
+</div>
+
+<div class="col-md-6">
+<label class="small mb-1" for="inputLocation">Cidade</label>
+<input class="form-control" disabled id="inputLocation" type="text" placeholder="Cidade" value="PR, Brazil">
+</div>
+</div>
+
+<div class="mb-3">
+<label class="small mb-1" for="inputEmailAddress">E-mail</label>
+{{ form1.mail(class="form-control", id="inputEmailAddress", placeholder="Insira seu e-mail", value=current_user.email) }}
+</div>
+
+<div class="row gx-3 mb-3">
+
+<div class="col-md-6">
+<label class="small mb-1" for="inputPhone">Telefone</label>
+<input class="form-control" disabled id="inputPhone" type="tel" placeholder="Seu " value="41-99999-9999">
+</div>
+
+<div class="col-md-6">
+<label class="small mb-1" for="inputBirthday">Data de nascimento</label>
+<input class="form-control" disabled id="inputBirthday" type="text" name="birthday" placeholder="Seu aniversáio" value="06/10/1988">
+</div>
+</div>
+
+
+			{{ form1.submit(class="btn btn-info", id="bt1", style="margin-top: 5px;", value='Salvar') }}
+                        </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+<div class="tab-pane fade" id="security" role="tabpanel" aria-labelledby="security-tab">
+ <div class="col-lg-6">
+                <div class="card mb-4">
+                    <div class="card-header">Alterar Senha</div>
+                    <div class="card-body">
+					
+                        <form action="v_pass" method="POST" id="cform">
+				       {{ form.csrf_token }}
+                            <div class="mb-3">
+                                <label class="small mb-1" for="currentPassword">Senha Atual</label>
+
+								{{ form.old_password(class="form-control mike", placeholder="Digite a senha atual") }}
+                            </div>
+                            <div class="mb-3">
+                                <label class="small mb-1" for="newPassword">Nova Senha</label>
+
+								{{ form.password(class="form-control mike", placeholder="Nova senha") }}
+                            </div>
+                            <div class="mb-3">
+                                <label class="small mb-1" for="confirmPassword">Confirmar Senha</label>
+								{{ form.new_password(class="form-control mike", placeholder="Confirme a nova senha") }}
+                            </div>
+       							{{ form.submit(class="btn btn-info", id="bt2", style="margin-top: 5px;", value='Salvar') }}
+                        </form>
+                    </div>
+                </div>
+            </div>
+			  </div>
+			  
+			  <script>
+    var profileTab = document.getElementById('profile-tab');
+    var securityTab = document.getElementById('security-tab');
+    var profileContent = document.getElementById('profile');
+    var securityContent = document.getElementById('security');
+
+    profileTab.addEventListener('click', function (event) {
+        var bsTab = new bootstrap.Tab(profileTab);
+		var scTab = new bootstrap.Tab(securityTab);
+		securityContent.classList.add('hide');
+        securityContent.classList.remove('active');
+        securityContent.classList.remove('show');			
+        profileContent.classList.add('active');
+    });
+
+    securityTab.addEventListener('click', function (event) {
+        var bsTab = new bootstrap.Tab(profileTab);
+		var scTab = new bootstrap.Tab(securityTab);
+        securityContent.classList.remove('hide');
+        profileContent.classList.remove('active');
+        securityContent.classList.add('active');
+    });
+	
+	$(document).ready(function() {
+    $('#bt1').on('click', function(event) {
+        event.preventDefault(); // Impede o comportamento padrão do botão
+
+        var form = $('#bform');
+        var formData = form.serialize(); // Serializa os dados do formulário
+        
+        $.ajax({
+            type: form.attr('method'),
+            url: form.attr('action'),
+            data: formData,
+            success: function(data) {
+                // Trate os dados recebidos
+                if (data.return === false) {
+                    console.log("Retornou false");
+                    var toastBody = document.querySelector('.toast-body');
+                    toastBody.textContent = data.text;
+                    var toast_alert = document.getElementById('toast');
+                    toast_alert.classList.remove('hide');
+                    toast_alert.classList.add('show'); 
+
+                    toast_alert.classList.remove('bg-success');
+                    toast_alert.classList.add('bg-danger');		
+
+                    setTimeout(function() {
+        			toast_alert.classList.remove('show');
+        			toast_alert.classList.add('hide');
+    			}, 5000);					
+                   
+                    // Faça o que precisar com os dados quando o campo for false
+                }
+				
+				else if(data.return === true){
+				   				
+				    console.log("Retornou True");
+                    var toastBody = document.querySelector('.toast-body');
+                    toastBody.textContent = data.text;
+                    var toast_alertok = document.getElementById('toast');
+                    toast_alertok.classList.remove('hide');
+                    toast_alertok.classList.add('show');                    							
+					toast_alertok.classList.remove('bg-danger');
+                    toast_alertok.classList.add('bg-success');
+					swal("Sucesso!", data.text, "success")
+							
+					setTimeout(function() {
+        			toast_alertok.classList.remove('show');
+        			toast_alertok.classList.add('hide');
+					
+    			}, 5000); // 5000 milissegundos = 5 segundos
+				}
+            },
+            error: function(error) {
+                // Lide com o erro
+                console.error('Erro:', error);
+            }
+        });
+    });
+});
+
+
+$(document).ready(function() {
+    $('#bt2').on('click', function(event) {
+        event.preventDefault(); // Impede o comportamento padrão do botão
+
+        var form = $('#cform');
+        var formData = form.serialize(); // Serializa os dados do formulário
+        
+        $.ajax({
+            type: form.attr('method'),
+            url: form.attr('action'),
+            data: formData,
+            success: function(data) {
+                // Trate os dados recebidos
+                if (data.return === false) {
+                    console.log("Retornou false");
+                    var toastBody = document.querySelector('.toast-body');
+                    toastBody.textContent = data.text;
+                    var toast_alert = document.getElementById('toast');
+                    toast_alert.classList.remove('hide');
+                    toast_alert.classList.add('show'); 
+
+                    toast_alert.classList.remove('bg-success');
+                    toast_alert.classList.add('bg-danger');		
+
+                    setTimeout(function() {
+        			toast_alert.classList.remove('show');
+        			toast_alert.classList.add('hide');
+    			}, 5000);					
+                   
+                    // Faça o que precisar com os dados quando o campo for false
+                }
+				
+				else if(data.return === true){
+				   				
+				    console.log("Retornou True");
+                    var toastBody = document.querySelector('.toast-body');
+                    toastBody.textContent = data.text;
+                    var toast_alertok = document.getElementById('toast');
+                    toast_alertok.classList.remove('hide');
+                    toast_alertok.classList.add('show');                    							
+					toast_alertok.classList.remove('bg-danger');
+                    toast_alertok.classList.add('bg-success');
+					swal("Sucesso!", data.text, "success")
+					const fields = document.getElementsByClassName("mike");
+					
+					for (let i = 0; i < fields.length; i++) {
+                    fields[i].value = "";
+					}
+					
+					setTimeout(function() {
+        			toast_alertok.classList.remove('show');
+        			toast_alertok.classList.add('hide');
+					
+    			}, 5000); // 5000 milissegundos = 5 segundos
+				}
+            },
+            error: function(error) {
+                // Lide com o erro
+                console.error('Erro:', error);
+            }
+        });
+    });
+});
+
+     
+	$(document).ready(function() {
+    $('#bnp').on('click', function(event) {
+        event.preventDefault(); // Impede o comportamento padrão do botão
+
+        var form = $('#pform');
+        var formData = new FormData(form[0]); 
+
+        $.ajax({
+            type: form.attr('method'),
+            url: form.attr('action'),
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(data) {
+                // Trate os dados recebidos
+                if (data.return === true) {
+				    // Recarrega o conteúdo da div "conteudo"
+                    $.ajax({
+                        type: 'GET', // ou 'POST' dependendo da sua rota
+                        url: 'perfil',
+                        success: function(response) {
+                            // Atualiza o conteúdo da div "conteudo" com a resposta
+                            $('#conteudo').html(response);
+                        },
+                        error: function(error) {
+                            console.error(error);
+                            // Lógica adicional de erro, se necessário
+                        }
+                    });
+                    swal("Sucesso!", data.text, "success");
+                    console.log(data);
+                    // Lógica adicional de sucesso, se necessário
+                }
+            },
+            error: function(error) {
+                console.error(error);
+                // Lógica adicional de erro, se necessário
+            }
+        });
+    });
+});
+	
+	$('#toast button').on('click', function() {
+    var toast_alert = document.getElementById('toast');
+    toast_alert.classList.remove('show')
+    toast_alert.classList.add('hide')
+
+    });
+	
+	$('form input[type="file"]').change(event => {
+    let arquivos = event.target.files;
+    if (arquivos.length === 0) {
+        console.log('Sem imagem para mostrar');
+    } else {
+        console.log("Era para ter trocado");
+        $('#perfil_pic').attr('src', URL.createObjectURL(arquivos[0]));
+    }
+});
+	
+</script>
+
+
+
+
+
+
+

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+  <meta name="generator" content="Hugo 0.84.0">
+  <title>GalaSistemas</title>
+  
+  <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/sidebars/">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+  <!-- Bootstrap core CSS 
+  <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">-->
+  <link href="{{url_for('static', filename='assets/dist/css/bootstrap.min.css')}}" rel="stylesheet">
+
+  <style>
+  .bootstrap{
+
+margin-left: -10px;
+
+  }
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+    }
+
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+      }
+    }
+  </style>
+
+  <!-- Custom styles for this template -->
+  <link href="{{url_for('static', filename='sidebars.css')}}" rel="stylesheet">
+</head>
+<body>
+<main>
+  <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 280px;">
+    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+      <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
+      <span class="fs-4">
+
+      <img src="{{url_for('static', filename='gs.png')}}" class='bootstrap'></img>
+      </span>
+    </a>
+   
+
+
+    {% if current_user.is_authenticated %}
+    <a class="text-decoration-none" href="#">{{ current_user.name }}</a>
+    </h5>
+    {% else %}
+    <script>window.location.replace("login");</script>
+    {% endif %}
+  
+  
+     <hr>
+      <ul class="nav nav-pills flex-column mb-auto">
+        <li class="nav-item">
+          <a href="#" class="nav-link active" aria-current="page">
+            <i class="fas fa-home me-2"></i>
+            Inicio
+          </a>
+        </li>
+        <li>
+          <a href="#" class="nav-link text-white">
+            <i class="fas fa-tachometer-alt me-2"></i>
+            Robôs
+          </a>
+        </li>
+        <li>
+          <a href="#" class="nav-link text-white">
+            <i class="fas fa-shopping-cart me-2"></i>
+            Monitores
+          </a>
+        </li>
+        <li>
+          <a href="#" class="nav-link text-white">
+            <i class="fas fa-shopping-basket me-2"></i>
+            Aplicações
+          </a>
+        </li>
+        <li>
+          <a href="#" class="nav-link text-white">
+            <i class="fas fa-user me-2"></i>
+            Painel
+          </a>
+        </li>
+      </ul>
+      <hr>
+      <div class="dropdown">
+        <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+          <img src="https://static-00.iconduck.com/assets.00/profile-default-icon-2048x2045-u3j7s5nj.png" alt="" width="32" height="32" class="rounded-circle me-2">
+          <strong>GS.Mike</strong>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+          <li><a class="dropdown-item" href="#">New project...</a></li>
+          <li><a class="dropdown-item" href="#">Configurações</a></li>
+          <li><a class="dropdown-item" href="#">Perfil</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" href="#">Deslogar</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="b-example-divider"></div>
+    <div class="b-example-divider"></div>
+  </main>
+
+
+
+<!-- Seus scripts -->
+<script src="{{url_for('static', filename='assets/dist/js/bootstrap.bundle.min.js')}}"></script>
+
+<!-- Seus scripts -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $('.nav-link').click(function(e) {
+      e.preventDefault();
+      $('.nav-link.active').removeClass('active');
+      $(this).addClass('active');
+    });
+  });
+</script>
+</body>
+</html>
